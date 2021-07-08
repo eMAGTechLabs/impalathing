@@ -6,8 +6,8 @@ import (
 	"time"
 
 	"github.com/apache/thrift/lib/go/thrift"
-	"github.com/koblas/impalathing/services/beeswax"
-	impala "github.com/koblas/impalathing/services/impalaservice"
+	"github.com/eMAGTechLabs/impalathing/services/beeswax"
+	impala "github.com/eMAGTechLabs/impalathing/services/impalaservice"
 )
 
 type Option func(*Options)
@@ -73,7 +73,10 @@ func Connect(host string, port int, opts ...Option) (*Connection, error) {
 		opt(&options)
 	}
 
-	socket, err := thrift.NewTSocketTimeout(fmt.Sprintf("%s:%d", host, port), options.ConnectionTimeout)
+	socket, err := thrift.NewTSocketConf(fmt.Sprintf("%s:%d", host, port), &thrift.TConfiguration{
+		ConnectTimeout: options.ConnectionTimeout * time.Second, // Use 0 for no timeout
+		SocketTimeout:  options.ConnectionTimeout * time.Second, // Use 0 for no timeout
+	})
 
 	if err != nil {
 		return nil, err
