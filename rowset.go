@@ -9,8 +9,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/koblas/impalathing/services/beeswax"
-	impala "github.com/koblas/impalathing/services/impalaservice"
+	"github.com/eMAGTechLabs/impalathing/services/beeswax"
+	impala "github.com/eMAGTechLabs/impalathing/services/impalaservice"
 )
 
 type rowSet struct {
